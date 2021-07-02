@@ -1,12 +1,12 @@
 # To-do List
 
-An implementation of "to do list" in the Django framework
+An implementation of "to do list" in the Django framework.
 
 
 
 ## Getting Started
 
-Initially
+Initially create a virtual environment using python's virtualenv. If you don't know, go to this [link](https://www.treinaweb.com.br/blog/criando-ambientes-virtuais-para-projetos-python-com-o-virtualenv).
 
 ### Prerequisites
 
