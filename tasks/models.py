@@ -15,8 +15,7 @@ class Task(models.Model):
 		max_length=7, # Tamanho da entrada
 		choices=STATUS,
 	)
-
-	completion_date = models.DateField(auto_now_add=False)
+	completion_date = models.DateField(auto_now_add=False)	# Eu criei
   
 	created_at = models.DateTimeField(auto_now_add=True)
 	update_at = models.DateTimeField(auto_now=True)
