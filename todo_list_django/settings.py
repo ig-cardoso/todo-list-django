@@ -36,9 +36,10 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'livereload',   # App de reload
+    'livereload',   # App de reload. More in:https://github.com/tjwalch/django-livereload-server
     'django.contrib.staticfiles',
     'tasks',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -124,3 +125,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

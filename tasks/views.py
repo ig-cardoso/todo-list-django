@@ -12,11 +12,16 @@ from .models import Task
 
 def taskList(request):		#   order_by: ordena por data de criação do mais novo para mais antigo 
 	tasks_list = Task.objects.all().order_by('-created_at') # Vou pegar todos os objetos de task do banco de dados
-	
-	paginacao = Paginator(tasks_list, 3) # (lista, num de páginas)
-	page = request.GET.get('page')	
-	tasks = paginacao.get_page(page) # Vai exibir o numero correto na página que está
 
+	search = request.GET.get('search')	# reseach é name do input de busca que está no html list.html
+
+	if search: # Buscar pelo nome da task
+		tasks = Task.objects.filter(title__icontains=search)	# Vai buscar uma lista de tasks
+	else:
+		# Paginação
+		paginacao = Paginator(tasks_list, 10) # (lista, num de páginas)
+		page = request.GET.get('page')	
+		tasks = paginacao.get_page(page) # Vai exibir o numero correto na página que está
 
 	return render(request, 'tasks/list.html', {'tasks':tasks})	# render: "renderiza"  a página
 
@@ -68,7 +73,6 @@ def editTasks(request, id):
 def deleteTasks(request, id):
 	task = get_object_or_404(Task, pk=id)
 	task.delete()
-
 	messages.info(request, 'Tarefa deletada com sucesso!') # Mensagem enviada para o front-end
 
 	return redirect('/')

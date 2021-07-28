@@ -1,2 +1,4 @@
 Django==2.1.5
 pytz==2021.1
+django-livereload-server==0.3.2
+django-crispy-forms==1.7.2

@@ -10,13 +10,12 @@ class Task(models.Model):
 
 	# Campos
 	title = models.CharField(max_length=255)
-	description = models.TextField()
+	description = models.TextField(blank=True)
 	done = models.CharField(
 		max_length=7, # Tamanho da entrada
 		choices=STATUS,
 	)
-	completion_date = models.DateField(auto_now_add=False)	# Eu criei
-  
+	completion_date = models.DateField(auto_now_add=False)  # Eu criei. blank=True permite que o campo fique em branco
 	created_at = models.DateTimeField(auto_now_add=True)
 	update_at = models.DateTimeField(auto_now=True)
 

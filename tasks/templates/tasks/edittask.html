@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block title %}Editando '{{task.title}}'{% endblock %}
 
@@ -9,7 +10,7 @@
 	<h1>Adicione a sua nove tarefa:</h1>
 	<form method="POST">
 		{% csrf_token %}
-		{{ form.as_p }} <!-- Esse tag do dajngo imprime o formulário envolvido por paragárafo -->
+		{{ form|crispy }} <!-- Esse tag do dajngo imprime o formulário envolvido por paragárafo -->
 		<input type="submit" class="btn btn-success" value="Editar Tarefa"> <!-- Botão -->
 	</form>
 </div>
