@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required	# Esse docoreto vai impedir usuários não autorizados acessem rotas protegidas
 from django.http import HttpResponse
 from django.contrib import messages
 from django.core.paginator import Paginator # Paginação
@@ -6,13 +7,11 @@ from django.core.paginator import Paginator # Paginação
 from .forms import TaskForm
 from .models import Task
 
-# Create your views here.
+# Funções relacionadas as URL's do arquivo urls.py
 
-# Funções relacionadas as URL's
-
+@login_required
 def taskList(request):		#   order_by: ordena por data de criação do mais novo para mais antigo 
 	tasks_list = Task.objects.all().order_by('-created_at') # Vou pegar todos os objetos de task do banco de dados
-
 	search = request.GET.get('search')	# reseach é name do input de busca que está no html list.html
 
 	if search: # Buscar pelo nome da task
@@ -26,12 +25,14 @@ def taskList(request):		#   order_by: ordena por data de criação do mais novo 
 	return render(request, 'tasks/list.html', {'tasks':tasks})	# render: "renderiza"  a página
 
 
+@login_required
 def taskView(request, id):
 	task = get_object_or_404(Task, pk=id)
 	return render(request, 'tasks/task.html', {'task':task})
 											#		'-> Argumento enviado para p front-end		
 
 
+@login_required
 def newTask(request):
 	# Dispor e tratar formulário
 	if request.method == 'POST': # Se for POST vai fazer inserção
@@ -51,6 +52,7 @@ def newTask(request):
 		return render(request, 'tasks/addtask.html', {'form':form})
 
 
+@login_required
 def editTasks(request, id):
 	# O id vem do parametro da url para poder achar a task
 	task = get_object_or_404(Task, pk=id)
@@ -70,6 +72,7 @@ def editTasks(request, id):
 		return render(request, 'tasks/edittask.html', {'form':form, 'task':task})
 
 
+@login_required
 def deleteTasks(request, id):
 	task = get_object_or_404(Task, pk=id)
 	task.delete()

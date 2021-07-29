@@ -18,31 +18,37 @@
 <body>
 	<div class="container-fluid">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="/">To Do</a>
+            <a class="navbar-brand" href="/">ToDo-List</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Tarefas</a>
-                    </li>
-                    <li class="nav-item">
+
+                    {% if user.is_authenticated %} <!-- Verifica se o usuário está autenticado -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Tarefas</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="#">Usuários</a>
                         </li>
-               
-                    <li class="nav-item">
-                        <a class="nav-link" href="/accounts/login">Entrar</a>
-                    </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/accounts/login">Entrar</a>
+                        </li>
+                    {% endif %}
        
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Sobre nós</a>
+                        <a class="nav-link" href="#">Sobre</a>
                     </li>
                     
-                    <li class="nav-item">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
                             <a class="nav-link" href="/accounts/logout">Sair</a>
-                     </li>
+                        </li>
+                    {% endif %}
+
                 </ul>
             </div>
         </nav>
