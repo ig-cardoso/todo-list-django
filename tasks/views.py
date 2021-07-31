@@ -11,12 +11,14 @@ from .models import Task
 
 @login_required
 def taskList(request):		#   order_by: ordena por data de criação do mais novo para mais antigo 
-	tasks_list = Task.objects.all().order_by('-created_at') # Vou pegar todos os objetos de task do banco de dados
 	search = request.GET.get('search')	# reseach é name do input de busca que está no html list.html
 
 	if search: # Buscar pelo nome da task
-		tasks = Task.objects.filter(title__icontains=search)	# Vai buscar uma lista de tasks
+		# Vai buscar uma lista de tasks e vai filtrar pelo request.user (o usuário da requisição)
+		tasks = Task.objects.filter(title__icontains=search)#, user=request.user)
 	else:
+		# Vou pegar todos as tasks e filtrar pelo request.user
+		tasks_list = Task.objects.all().order_by('-created_at')#.filter(user=request.user)
 		# Paginação
 		paginacao = Paginator(tasks_list, 10) # (lista, num de páginas)
 		page = request.GET.get('page')	

@@ -22,3 +22,6 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')), # O Django obedece a ordem das urls
     path('accounts/', include('django.contrib.auth.urls')), # Add as urls relacinadas a login, logout e registro
 ]
+'''
+O Djando vai chamar o primeiro accounts/ e vai sumimir o accounts/ de baixo (só executar o de cima)
+'''
