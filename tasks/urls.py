@@ -10,4 +10,15 @@ urlpatterns = [
     path('edit/<int:id>', views.editTasks, name='edit-task'),
     path('delete/<int:id>', views.deleteTasks, name='delete-task'),
     path('yourname/<str:name>', views.yourName, name='your-name'),
+
+
+    # Reset password
+    path('password-reset/', views.PasswordResetView.as_view(
+        template_name='registration/reset-password.html'), name='password-reset'),
+    # path('password-reset/done', views.PasswordResetDoneView.as_view(
+    #     template_name='registration/reset-password_done.html'), name='password-reset_done'),
+    # path('password-reset-confirm/<uidb64>/<token>', views.PasswordResetConfirmView.as_view(
+    #     template_name='registration/reset-password_confirm.html'), name='password-reset_confirm'),
+    # path('password-reset-complete', views.PasswordResetCompleteView.as_view(
+    #     template_name='registration/reset-password_complete.html'), name='password-reset_complete')
 ]

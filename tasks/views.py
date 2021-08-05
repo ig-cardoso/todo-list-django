@@ -3,6 +3,9 @@ from django.contrib.auth.decorators import login_required	# Esse docoreto vai im
 from django.http import HttpResponse
 from django.contrib import messages
 from django.core.paginator import Paginator # Paginação
+from django.contrib.auth.views import (PasswordChangeView, PasswordResetView, 
+										PasswordResetDoneView, PasswordResetConfirmView, 
+										PasswordResetCompleteView)
 
 from .forms import TaskForm
 from .models import Task
