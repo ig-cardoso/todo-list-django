@@ -13,5 +13,5 @@ class TaskForm(forms.ModelForm):
 	# Metadados
 	class Meta:
 		model = Task
-		fields = ('title', 'description', 'completion_date') 
+		fields = ('title', 'description', 'share', 'completion_date')
 		# Campos que eu quero que apareca no front-end
