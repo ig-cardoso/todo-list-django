@@ -18,10 +18,10 @@ def taskList(request):		#   order_by: ordena por data de criação do mais novo 
 
 	if search: # Buscar pelo nome da task
 		# Vai buscar uma lista de tasks e vai filtrar pelo request.user (o usuário da requisição)
-		tasks = Task.objects.filter(title__icontains=search)#, user=request.user)
+		tasks = Task.objects.filter(title__icontains=search, user=request.user)#, user=request.user)
 	else:
 		# Vou pegar todos as tasks e filtrar pelo request.user
-		tasks_list = Task.objects.all().order_by('-created_at')#.filter(user=request.user)
+		tasks_list = Task.objects.all().order_by('-created_at').filter(user=request.user)
 		# Paginação
 		paginacao = Paginator(tasks_list, 10) # (lista, num de páginas)
 		page = request.GET.get('page')	
@@ -46,6 +46,7 @@ def newTask(request):
 		if form.is_valid(): # Se o formulário for válido
 			task = form.save(commit=False) # Com o commit=False ele vai parar o processo save e esperar até salvar
 			task.done = 'fazendo'
+			task.user = request.user	# Envia o user altenticado
 			task.save()
 
 			messages.info(request, 'Tarefa adicionada com sucesso!')	# Mensagem enviada para o front-end

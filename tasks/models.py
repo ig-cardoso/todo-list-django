@@ -17,7 +17,7 @@ class Task(models.Model):
 		choices=STATUS,
 	)
 	
-	#user_id = models.ForeignKey(get_user_model(), on_delete=models.CASCADE) # Id do usuário
+	user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE) # Id do usuário
 	# get_user_model() -> Atrela ao id do usuário
 	# on_delete=models.CASCADE -> Quando o usuário for delato do sistema vai apagar todas as suas tarefas (atrelada ao seu id)
 
