@@ -23,7 +23,7 @@ pip install -r requirements.txt
 
 * **Igor Cardoso** - *Initial work* - [ig-cardoso](https://github.com/ig-cardoso)
 
-## Licença
+## License
 
 This project is licensed under an MIT license - see file [LICENSE.md](LICENSE.md) for more details.
 
