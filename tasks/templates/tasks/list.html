@@ -7,6 +7,22 @@
 <div class="offset-1 col-10 list-div">
 	<h1>Lista de Tarefas</h1>
 
+	<div class="container dashboard"> <!-- Dashboard -->
+		<div class="col-4 dashboard-box" id="dashboard-lastdays">
+			<h4>Finalidas nos últimos 30 dias</h4>
+			<span>{{ taskFeitaRecente }}</span>
+		</div>
+		<div class="col-4 dashboard-box" id="dashboard-done">
+			<h4>Tarefas finalizadas</h4>
+			<span>{{ taskFeito }}</span>
+		</div>
+		<div class="col-4 dashboard-box" id="dashboard-doing">
+			<h4>Tarefas a fazer</h4>
+			<span>{{ taskFazendo }}</span>
+		</div>
+	</div>
+
+
 	<a id="add-link" href="newtask/">
 		<div class="col-2 add-div">
 			<i class="fas fa-plus"></i> Adicionar tarefa
@@ -20,6 +36,14 @@
 		</form>
 	</div>
 
+	<div class="col-12 filter-div" > <!-- Filtro de pesquisa das tarefas (feito ou fazendo)-->
+		<span>Filtrar por: </span>
+		<select name="filter" id="filter" class="form-control">
+			<option value="NADA">Escolha uma opção</option>
+			<option value="feito">Tarefas concluidas</option>
+			<option value="fazendo">Tarefas a fazer</option>
+		</select>
+	</div>
 
 	{% if messages %} <!-- Mensagens de aviso -->
 		<ul class="messages">
@@ -34,11 +58,17 @@
 
 	<ul class="task-list"> <!-- Lista de tarefa -->
 		{% for task in tasks %}
-		<li class="task-item">
-			<span><a href="/task/{{task.id}}">{{task.title}}</a></span>
-			<a href="/delete/{{task.id}}" class="delete-btn"><span><i class="fas fa-trash"></i></span></a>
-			<a href="/edit/{{task.id}}"><span><i class="fas fa-edit"></i></span></a>
-		</li>
+		
+			{% if task.done == 'fazendo' %}
+				<li class="task-item">
+			{% else %}
+				<li class="task-item done">
+			{% endif %}
+					<span><a href="task/{{task.id}}">{{ task.title }}</a></span>
+					<a href="delete/{{task.id}}" class="delete-btn"><span><i class="fas fa-trash"></i></span></a>
+					<a href="edit/{{task.id}}"><span><i class="fas fa-edit"></i></span></a>
+					<a href="changestatus/{{task.id}}"><span><i class="fas fa-check"></i></span></a>
+				</li>
 		{% endfor %}
 	</ul>
 

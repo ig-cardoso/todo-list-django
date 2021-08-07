@@ -9,16 +9,24 @@ from django.contrib.auth.views import (PasswordChangeView, PasswordResetView,
 
 from .forms import TaskForm
 from .models import Task
+import datetime
 
 # Funções relacionadas as URL's do arquivo urls.py
 
 @login_required
 def taskList(request):		#   order_by: ordena por data de criação do mais novo para mais antigo 
 	search = request.GET.get('search')	# reseach é name do input de busca que está no html list.html
+	filter = request.GET.get('filter') # Filtro
+	dias_30 = datetime.datetime.now()-datetime.timedelta(days=30)
+	taskFeitaRecente = Task.objects.filter(done='feito', update_at__gt=dias_30, user=request.user).count()
+	taskFeito = Task.objects.filter(done='feito', user=request.user).count()
+	taskFazendo = Task.objects.filter(done='fazendo', user=request.user).count()
 
-	if search: # Buscar pelo nome da task
+	if search: # Filtrar pelo nome
 		# Vai buscar uma lista de tasks e vai filtrar pelo request.user (o usuário da requisição)
 		tasks = Task.objects.filter(title__icontains=search, user=request.user)#, user=request.user)
+	elif filter: # Filtrar pelo estado (feito ou fazendo)
+		tasks = Task.objects.filter(done=filter, user=request.user) # Vai filtrar pelo user e pelo done
 	else:
 		# Vou pegar todos as tasks e filtrar pelo request.user
 		tasks_list = Task.objects.all().order_by('-created_at').filter(user=request.user)
@@ -27,7 +35,9 @@ def taskList(request):		#   order_by: ordena por data de criação do mais novo 
 		page = request.GET.get('page')	
 		tasks = paginacao.get_page(page) # Vai exibir o numero correto na página que está
 
-	return render(request, 'tasks/list.html', {'tasks':tasks})	# render: "renderiza"  a página
+	# render: "renderiza"  a página
+	return render(request, 'tasks/list.html', {'tasks': tasks, 'taskFeitaRecente': taskFeitaRecente, 
+               'taskFeito': taskFeito, 'taskFazendo': taskFazendo})
 
 
 @login_required
@@ -86,6 +96,18 @@ def deleteTasks(request, id):
 
 	return redirect('/')
 
+@login_required
+def changestatus(request, id):
+	task = get_object_or_404(Task, pk=id)
+
+	if task.done == 'fazendo':
+		task.done = 'feito'
+	else:
+		task.done = 'fazendo'
+
+	task.save()
+
+	return redirect('/')
 
 def helloWorld(request):
 	return HttpResponse('Hello World')
