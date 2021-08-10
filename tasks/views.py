@@ -41,6 +41,11 @@ def taskList(request):		#   order_by: ordena por data de criação do mais novo 
 
 
 @login_required
+def perfil(request):
+	return render(request, 'user/perfil.html', {'name': request.user})
+
+
+@login_required
 def taskView(request, id):
 	task = get_object_or_404(Task, pk=id)
 	return render(request, 'tasks/task.html', {'task':task})

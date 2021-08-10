@@ -11,6 +11,7 @@ urlpatterns = [
     path('delete/<int:id>', views.deleteTasks, name='delete-task'),
     path('changestatus/<int:id>', views.changestatus, name='change-status'),
     path('yourname/<str:name>', views.yourName, name='your-name'),
+    path('perfil/', views.perfil, name='perfil'),
 
 
     # Reset password
