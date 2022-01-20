@@ -21,7 +21,7 @@ pip install -r requirements.txt
 
 ## Author
 
-* **Igor Cardoso** - *Initial work* - [ig-cardoso](https://github.com/ig-cardoso)
+* **Igor Cardoso** - *Initial work* - [igorxcardoso](https://github.com/igorxcardoso)
 
 ## License
 
